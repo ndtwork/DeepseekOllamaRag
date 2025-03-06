@@ -38,7 +38,7 @@ st.markdown("""
 
     /* Headings */
     h1, h2, h3, h4, h5, h6 {{
-        color: #000000 !important;
+        color: #000000 !important;cho
         font-weight: bold;
     }}
 
