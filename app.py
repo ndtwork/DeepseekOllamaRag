@@ -9,6 +9,11 @@ from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 from langchain.chains import RetrievalQA
 
+# Define
+model_name = "llama3.2:3b-instruct-q8_0"
+#embedding_model_name = "sentence-transformers/all-MiniLM-L6-v2"
+embedding_model_name = "keepitreal/vietnamese-sbert"
+
 # Define color palette with improved contrast
 primary_color = "#007BFF"  # Bright blue for primary buttons
 secondary_color = "#FFC107"  # Amber for secondary buttons
@@ -67,7 +72,7 @@ st.markdown("""
 
 
 # App title
-st.title("📄 Build a RAG System with DeepSeek R1 & Ollama")
+st.title(f"📄 Build a RAG System with {model_name} & Ollama")
 
 # Sidebar for instructions and settings
 with st.sidebar:
@@ -79,10 +84,10 @@ with st.sidebar:
     """)
 
     st.header("Settings")
-    st.markdown("""
+    st.markdown(f"""
     - **Embedding Model**: HuggingFace
     - **Retriever Type**: Similarity Search
-    - **LLM**: DeepSeek R1 (Ollama)
+    - **LLM**: {model_name} (Ollama)
     """)
 
 # Main file uploader section
@@ -102,11 +107,11 @@ if uploaded_file is not None:
 
     # Split the document into chunks
     st.subheader("📚 Splitting the document into chunks...")
-    text_splitter = SemanticChunker(HuggingFaceEmbeddings())
+    text_splitter = SemanticChunker(HuggingFaceEmbeddings(model_name=embedding_model_name))
     documents = text_splitter.split_documents(docs)
 
     # Instantiate the embedding model
-    embedder = HuggingFaceEmbeddings()
+    embedder = HuggingFaceEmbeddings(model_name=embedding_model_name)
 
     # Create vector store and retriever
     st.subheader("🔍 Creating embeddings and setting up the retriever...")
@@ -115,7 +120,7 @@ if uploaded_file is not None:
 
     # Define the LLM and the prompt
     #llm = Ollama(model="deepseek-r1:1.5b")
-    llm = Ollama(model="llama3.2:3b-instruct-q8_0")
+    llm = Ollama(model=model_name)
 
     prompt = """
     1. Use the following pieces of context to answer the question at the end.
