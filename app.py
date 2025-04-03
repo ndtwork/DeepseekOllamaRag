@@ -12,7 +12,8 @@ from langchain.chains import RetrievalQA
 # Define
 model_name = "llama3.2:3b-instruct-q8_0"
 #embedding_model_name = "sentence-transformers/all-MiniLM-L6-v2"
-embedding_model_name = "keepitreal/vietnamese-sbert"
+#embedding_model_name = "keepitreal/vietnamese-sbert"
+embedding_model_name = "VoVanPhuc/sup-SimCSE-Vietnamese-phobert-base"
 
 # Define color palette with improved contrast
 primary_color = "#007BFF"  # Bright blue for primary buttons
