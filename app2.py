@@ -1,7 +1,12 @@
+# Thông báo này chỉ ra rằng HuggingFaceEmbeddings trong langchain_community.
+# embeddings đã bị deprecate (không còn được khuyến khích dùng) từ phiên bản LangChain 0.2.2,
+# và sẽ bị loại bỏ hoàn toàn trong bản 1.0.
+
 import streamlit as st
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
+#from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import Ollama
 from langchain.prompts import PromptTemplate
@@ -12,7 +17,7 @@ from langchain.chains import RetrievalQA
 # Define
 model_name = "llama3.2:3b-instruct-q8_0"
 embedding_model_name = "VoVanPhuc/sup-SimCSE-Vietnamese-phobert-base"
-
+#embedding_model_name = "keepitreal/vietnamese-sbert"
 # App title
 st.title(f"📄 Hệ thống RAG với {model_name} & Ollama")
 
@@ -119,3 +124,5 @@ if uploaded_file is not None:
                 st.error(f"Lỗi xảy ra: {e}")
 else:
     st.info("Vui lòng tải lên một tệp PDF để bắt đầu.")
+
+

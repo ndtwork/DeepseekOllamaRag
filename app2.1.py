@@ -12,6 +12,8 @@ from langchain.chains import RetrievalQA
 # Define
 model_name = "llama3.2:3b-instruct-q8_0"
 embedding_model_name = "VoVanPhuc/sup-SimCSE-Vietnamese-phobert-base"
+#embedding_model_name = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+
 
 # App title
 st.title(f"📄 Hệ thống RAG với {model_name} & Ollama")
@@ -150,3 +152,6 @@ if uploaded_file is not None:
 
 else:
     st.info("Vui lòng tải lên một tệp PDF để bắt đầu.")
+
+
+#  version này có kỹ thuật re rank
