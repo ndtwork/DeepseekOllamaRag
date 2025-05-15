@@ -5,8 +5,8 @@
 import streamlit as st
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
-#from langchain_huggingface import HuggingFaceEmbeddings
+#from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import Ollama
 from langchain.prompts import PromptTemplate
@@ -83,7 +83,7 @@ if uploaded_file is not None:
     prompt = """
         1. Use the following pieces of context to answer the question at the end.
         2. If you don't know the answer, just say that "I don't know" but don't make up an answer on your own.\n
-        3. Keep the answer crisp and limited to 3,4 sentences.
+        3. Trả lời chi tiết và đầy đủ dựa trên ngữ cảnh. Không giới hạn độ dài.
         Context: {context}
         Question: {question}
         Helpful Answer:"""
@@ -114,12 +114,31 @@ if uploaded_file is not None:
     st.header("❓ Đặt câu hỏi về tài liệu")
     user_input = st.text_input("Nhập câu hỏi tại đây:")
 
+    # if user_input:
+    #     with st.spinner("Đang xử lý..."):
+    #         try:
+    #             response = qa(user_input)["result"]
+    #             st.success("✅ Trả lời:")
+    #             st.write(response)
+    #         except Exception as e:
+    #             st.error(f"Lỗi xảy ra: {e}")
     if user_input:
         with st.spinner("Đang xử lý..."):
             try:
-                response = qa(user_input)["result"]
+                response = qa(user_input)
+                answer = response["result"]
+                source_chunks = response["source_documents"]
+
                 st.success("✅ Trả lời:")
-                st.write(response)
+                st.write(answer)
+
+                # In ra terminal (console) các đoạn được truy xuất
+                print("\n===== CÁC ĐOẠN CHUNK ĐƯỢC TRUY XUẤT =====")
+                for i, doc in enumerate(source_chunks):
+                    print(f"\n--- Đoạn {i + 1} ---")
+                    print(doc.page_content)
+                    print(f"Source: {doc.metadata.get('source', 'Không có')}")
+
             except Exception as e:
                 st.error(f"Lỗi xảy ra: {e}")
 else:

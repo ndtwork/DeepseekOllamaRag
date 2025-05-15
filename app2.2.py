@@ -13,7 +13,7 @@ import os
 # Define
 model_name = "llama3.2:3b-instruct-q8_0"
 embedding_model_name = "VoVanPhuc/sup-SimCSE-Vietnamese-phobert-base"
-embedding_model_name = "keepitreal/vietnamese-sbert"
+#embedding_model_name = "keepitreal/vietnamese-sbert"
 
 
 # App title
